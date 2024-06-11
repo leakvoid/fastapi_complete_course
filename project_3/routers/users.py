@@ -48,7 +48,7 @@ async def change_password(user: user_dependency, db: db_dependency,
     user_model = db.query(Users).filter(Users.id == user.get('id')).first()
 
     if not bcrypt_context.verify(user_verification.password, user_model.hashed_password):
-        raise HTTPException(status_code=401, detial='Error on password change')
+        raise HTTPException(status_code=401, detail='Error on password change')
     
     user_model.hashed_password = bcrypt_context.hash(user_verification.new_password)
     db.add(user_model)
